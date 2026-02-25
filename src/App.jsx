@@ -220,6 +220,7 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
 
               {sectionJourneys.map(journey => {
                 const expanded = expandedJourneys[journey.id]
+                const isLocked = journey.sectionId === 'component-creation'
                 const totalInJourney = journey.stages.reduce(
                   (sum, s) => sum + (storyCountByStage[s.id] ?? 0), 0
                 )
@@ -228,54 +229,61 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
                   <div key={journey.id} style={{ marginBottom: 4 }}>
                     {/* Journey header */}
                     <button
-                      onClick={() => toggleJourney(journey.id)}
+                      onClick={() => !isLocked && toggleJourney(journey.id)}
                       style={{
                         width: '100%',
                         padding: '10px 12px',
                         borderRadius: 10,
                         border: 'none',
-                        background: journey.color.muted,
-                        color: journey.color.accent,
+                        background: isLocked ? '#F5F5F5' : journey.color.muted,
+                        color: isLocked ? '#B7B7B8' : journey.color.accent,
                         fontSize: 12,
                         fontWeight: 700,
                         textAlign: 'left',
-                        cursor: 'pointer',
+                        cursor: isLocked ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         gap: 7,
                         marginTop: 6,
-                        marginBottom: expanded ? 4 : 0,
+                        marginBottom: expanded && !isLocked ? 4 : 0,
                         transition: 'all 150ms ease',
                         fontFamily: 'inherit',
                         letterSpacing: '0.01em',
+                        opacity: isLocked ? 0.6 : 1,
                       }}
                     >
                       <span style={{ fontSize: 15 }}>{journey.emoji}</span>
                       <span style={{ flex: 1, lineHeight: 1.3 }}>{journey.name}</span>
-                      <span style={{
-                        background: journey.color.accent,
-                        color: '#fff',
-                        borderRadius: 999,
-                        fontSize: 10,
-                        fontWeight: 700,
-                        padding: '1px 7px',
-                        flexShrink: 0,
-                      }}>
-                        {totalInJourney}
-                      </span>
-                      <span style={{
-                        fontSize: 10,
-                        opacity: 0.7,
-                        transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)',
-                        transition: 'transform 200ms ease',
-                        flexShrink: 0,
-                      }}>
-                        ▼
-                      </span>
+                      {isLocked ? (
+                        <span style={{ fontSize: 12, flexShrink: 0 }}>🔒</span>
+                      ) : (
+                        <>
+                          <span style={{
+                            background: journey.color.accent,
+                            color: '#fff',
+                            borderRadius: 999,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            padding: '1px 7px',
+                            flexShrink: 0,
+                          }}>
+                            {totalInJourney}
+                          </span>
+                          <span style={{
+                            fontSize: 10,
+                            opacity: 0.7,
+                            transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)',
+                            transition: 'transform 200ms ease',
+                            flexShrink: 0,
+                          }}>
+                            ▼
+                          </span>
+                        </>
+                      )}
                     </button>
 
                     {/* Stages */}
-                    {expanded && (
+                    {!isLocked && expanded && (
                       <div style={{ paddingLeft: 8 }}>
                         {journey.stages.map((stage) => {
                           const active = selectedStageId === stage.id
@@ -427,12 +435,12 @@ function ActorFilter({ selected, onSelect, countByActor }) {
 
 // ── JourneyCard (overview) ────────────────────────────────────────────────────
 
-function JourneyCard({ journey, totalCount, onStageClick, index }) {
+function JourneyCard({ journey, totalCount, onStageClick, index, locked }) {
   const [hovered, setHovered] = useState(false)
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => !locked && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         background: '#fff',
@@ -443,8 +451,29 @@ function JourneyCard({ journey, totalCount, onStageClick, index }) {
         animationDelay: `${index * 90}ms`,
         transition: 'all 200ms cubic-bezier(0.215, 0.61, 0.355, 1)',
         boxShadow: hovered ? `0 12px 40px ${journey.color.accent}1A` : '0 2px 8px rgba(0,0,0,0.04)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Lock overlay */}
+      {locked && (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 18,
+          background: 'rgba(255,255,255,0.82)',
+          backdropFilter: 'blur(3px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2,
+          gap: 6,
+        }}>
+          <span style={{ fontSize: 26 }}>🔒</span>
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#7A7B7D' }}>Coming soon</span>
+        </div>
+      )}
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
         <div style={{
@@ -486,7 +515,7 @@ function JourneyCard({ journey, totalCount, onStageClick, index }) {
         {journey.stages.map(stage => (
           <button
             key={stage.id}
-            onClick={() => onStageClick(stage.id)}
+            onClick={() => !locked && onStageClick(stage.id)}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -495,7 +524,7 @@ function JourneyCard({ journey, totalCount, onStageClick, index }) {
               borderRadius: 10,
               border: `1px solid ${journey.color.border}`,
               background: journey.color.bg,
-              cursor: 'pointer',
+              cursor: locked ? 'default' : 'pointer',
               textAlign: 'left',
               transition: 'all 150ms ease',
               fontFamily: 'inherit',
@@ -629,6 +658,7 @@ function Overview({ onStageClick, storyCountByStage }) {
             totalCount={totalByJourney(journey)}
             onStageClick={onStageClick}
             index={i}
+            locked={journey.sectionId === 'component-creation'}
           />
         ))}
       </div>
