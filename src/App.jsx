@@ -182,14 +182,13 @@ function StoryCard({ story, index }) {
       onMouseLeave={() => setHov(false)}
       style={{
         background: hov ? '#F9F9F9' : 'transparent',
-        border: `1px solid ${hov ? actor.color : '#D8D8D8'}`,
+        border: `1px solid #D8D8D8`,
         borderTop: `3px solid ${actor.color}`,
         padding: 24,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
-        transition: 'border-color 0.2s ease, background 0.2s ease',
-        cursor: 'pointer',
+        transition: 'background 0.2s ease',
         animation: 'fadeUp 360ms ease both',
         animationDelay: `${Math.min(index * 45, 380)}ms`,
       }}
@@ -207,10 +206,10 @@ function StoryCard({ story, index }) {
 
       {/* Story content */}
       <div style={{ flex: 1 }}>
-        <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--c-black)' }}>
+        <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--c-black)', marginBottom: 12 }}>
           I want to {story.want},
         </p>
-        <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--c-grey-dark)', marginTop: 8 }}>
+        <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--c-grey-dark)' }}>
           so that {story.soThat}.
         </p>
       </div>
