@@ -1,0 +1,65 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple-50: #F5F3FF;
+  --purple-100: #EAEAFD;
+  --purple-200: #D9D8FC;
+  --purple-300: #BDB8FA;
+  --purple-400: #9B8FF6;
+  --purple-500: #7A62F0;
+  --purple-600: #6841E6;
+  --purple-700: #582FD2;
+  --grey-50: #FBFBFB;
+  --grey-100: #F5F5F5;
+  --grey-150: #EBEBEB;
+  --grey-200: #E0E0E1;
+  --grey-300: #B7B7B8;
+  --grey-350: #8F8E92;
+  --grey-400: #7A7B7D;
+  --grey-500: #474649;
+  --grey-600: #242324;
+  --grey-650: #19191A;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: #F4F3FF;
+  color: var(--grey-600);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Animations ── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Scrollbar ── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--grey-200); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--grey-300); }
