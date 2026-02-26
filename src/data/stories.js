@@ -434,23 +434,8 @@ export const stories = [
   // Stage: Multi-tool Setup
   {
     id: 'US-30', stageId: 'cd-tools', actor: 'Component Developer',
-    want: 'component specs to live in plain .md files not tied to any specific AI tool',
+    want: 'component specs to live in plain spec files not tied to any specific AI tool',
     soThat: 'switching tools in future does not require rewriting the entire system',
-  },
-  {
-    id: 'US-31', stageId: 'cd-tools', actor: 'Component Developer',
-    want: 'thin .mdc wrapper files that point to the plain .md specs when using Cursor',
-    soThat: 'Cursor auto-loads the right rules without duplicating content',
-  },
-  {
-    id: 'US-32', stageId: 'cd-tools', actor: 'Component Developer',
-    want: 'a CLAUDE.md file that points to the plain .md specs when using Claude Code in the terminal',
-    soThat: 'Claude Code has the same context as Cursor without any manual attachment required',
-  },
-  {
-    id: 'US-33', stageId: 'cd-tools', actor: 'Design System Lead',
-    want: 'to add support for a new AI tool by writing a single entry-point file without changing any core .md specs',
-    soThat: 'the system can expand to new tools with minimal effort',
   },
 
   // ══ DEVELOPER JOURNEY ═══════════════════════════════════════════════════
@@ -485,8 +470,8 @@ export const stories = [
   },
   {
     id: 'US-40', stageId: 'sp-use', actor: 'Developer',
-    want: 'the AI to refuse to generate a component that does not exist in the system and instead suggest the closest alternative',
-    soThat: 'one-off components never get created outside the design system',
+    want: 'the AI to warn me when it detects a component in the generated code that does not exist in the system and suggest the closest alternative',
+    soThat: 'I can decide whether to use the suggested component or proceed with a one-off exception',
   },
   {
     id: 'US-41', stageId: 'sp-use', actor: 'QA Engineer',
