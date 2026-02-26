@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { journeys, actors, stories } from './data/stories'
 
-const LOCKED_SECTIONS = new Set(['component-creation', 'support'])
+const LOCKED_SECTIONS = new Set(['support'])
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -95,13 +95,100 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
         position: 'relative',
         zIndex: 2,
       }}>
-        {journeys.map(journey => {
+        {/* Journey Creation Section */}
+        <div style={{
+          padding: '20px 28px 8px',
+          fontSize: 10,
+          textTransform: 'uppercase',
+          color: '#3a3a3a',
+          letterSpacing: '1.2px',
+          fontWeight: 700,
+        }}>
+          Journey Creation
+        </div>
+        {journeys.filter(j => j.sectionId === 'journey-creation').map(journey => {
           const locked = LOCKED_SECTIONS.has(journey.sectionId)
 
           return (
             <div key={journey.id}>
               <div style={{
                 padding: '24px 28px 10px',
+                fontSize: 12,
+                textTransform: 'uppercase',
+                color: locked ? '#333' : '#555',
+                letterSpacing: '1px',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+                <span style={{ flex: 1 }}>{journey.name}</span>
+                {locked && <span style={{ fontSize: 11, opacity: 0.4 }}>🔒</span>}
+              </div>
+
+              {!locked && journey.stages.map(stage => (
+                <NavItem
+                  key={stage.id}
+                  label={stage.name}
+                  count={storyCountByStage[stage.id] ?? 0}
+                  active={selectedStageId === stage.id}
+                  onClick={() => onStageSelect(stage.id)}
+                />
+              ))}
+            </div>
+          )
+        })}
+
+        {/* Component Creation Section */}
+        <div style={{
+          padding: '32px 28px 8px',
+          fontSize: 10,
+          textTransform: 'uppercase',
+          color: '#3a3a3a',
+          letterSpacing: '1.2px',
+          fontWeight: 700,
+        }}>
+          Component Creation
+        </div>
+        {journeys.filter(j => j.sectionId === 'component-creation').map(journey => {
+          const locked = LOCKED_SECTIONS.has(journey.sectionId)
+
+          return (
+            <div key={journey.id}>
+              <div style={{
+                padding: '24px 28px 10px',
+                fontSize: 12,
+                textTransform: 'uppercase',
+                color: locked ? '#333' : '#555',
+                letterSpacing: '1px',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+                <span style={{ flex: 1 }}>{journey.name}</span>
+                {locked && <span style={{ fontSize: 11, opacity: 0.4 }}>🔒</span>}
+              </div>
+
+              {!locked && journey.stages.map(stage => (
+                <NavItem
+                  key={stage.id}
+                  label={stage.name}
+                  count={storyCountByStage[stage.id] ?? 0}
+                  active={selectedStageId === stage.id}
+                  onClick={() => onStageSelect(stage.id)}
+                />
+              ))}
+            </div>
+          )
+        })}
+
+        {/* Support Section */}
+        {journeys.filter(j => j.sectionId === 'support').map(journey => {
+          const locked = LOCKED_SECTIONS.has(journey.sectionId)
+
+          return (
+            <div key={journey.id}>
+              <div style={{
+                padding: '32px 28px 10px',
                 fontSize: 12,
                 textTransform: 'uppercase',
                 color: locked ? '#333' : '#555',

@@ -251,6 +251,16 @@ export const stories = [
     want: 'the code the AI generates for my screen to exactly follow the component patterns and file structures defined in the system',
     soThat: 'developers receive predictable, consistent code that mirrors the established codebase patterns without any undocumented deviations',
   },
+  {
+    id: 'US-56', stageId: 'ds-generate', actor: 'Designer',
+    want: 'the AI to include motion and animation specs when generating components',
+    soThat: 'interactions feel polished and consistent with the design system without manual animation work',
+  },
+  {
+    id: 'US-57', stageId: 'ds-generate', actor: 'Designer',
+    want: 'verify that the latest version of the component package is installed before generating screens',
+    soThat: 'I am always using updated components and never work with outdated versions',
+  },
 
   // Stage: Refine with Intuition
   {
@@ -262,6 +272,11 @@ export const stories = [
     id: 'US-05', stageId: 'ds-refine', actor: 'Designer',
     want: 'the AI to flag any layout decision it had to make that is not covered by an existing design system rule',
     soThat: 'I know exactly where the AI improvised so I can decide to accept that choice or refine it through further prompts',
+  },
+  {
+    id: 'US-55', stageId: 'ds-refine', actor: 'Designer',
+    want: 'apply the design system rules to an existing AI-generated design that follows a random design pattern',
+    soThat: 'I can retrofit any off-system screen to match our component library, spacing tokens, and visual standards without starting from scratch',
   },
 
   // Stage: PM Review
@@ -448,13 +463,18 @@ export const stories = [
   },
   {
     id: 'US-36', stageId: 'sp-discover', actor: 'New Joiner',
-    want: 'read the component .md files and immediately understand what each component looks like, when to use it, and when not to',
+    want: 'read the component spec files and immediately understand what each component looks like, when to use it, and when not to',
     soThat: 'I can contribute without needing a handholding session',
   },
   {
     id: 'US-37', stageId: 'sp-discover', actor: 'New Joiner',
-    want: 'read the .mdc files and immediately understand the technical rules for each component',
+    want: 'read the CSS and framework spec files and immediately understand the technical rules for each component',
     soThat: 'I can maintain and extend the system without breaking existing patterns',
+  },
+  {
+    id: 'US-60', stageId: 'sp-discover', actor: 'Developer',
+    want: 'to know if I can install a component package anytime later while generating, even if I forgot to use it initially',
+    soThat: 'I can add components on-demand without restarting my workflow',
   },
 
   // Stage: Use in Projects
@@ -482,6 +502,16 @@ export const stories = [
     id: 'US-54', stageId: 'sp-use', actor: 'Developer',
     want: 'to be notified when a designer handoff includes a one-off element that is not part of the component library',
     soThat: 'I can implement it as an explicit exception rather than accidentally treating it as a system component',
+  },
+  {
+    id: 'US-58', stageId: 'sp-use', actor: 'Developer',
+    want: 'to be warned if I am generating with an outdated component package version',
+    soThat: 'I can update before pushing to production and avoid using deprecated patterns',
+  },
+  {
+    id: 'US-59', stageId: 'sp-use', actor: 'Developer',
+    want: 'a clear reason when the AI suggests I should not use a specific component in a given context',
+    soThat: 'I understand the design system constraints and can make informed decisions',
   },
 
   // Stage: Manage Versions
