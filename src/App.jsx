@@ -95,9 +95,52 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
         position: 'relative',
         zIndex: 2,
       }}>
+        {/* Home Button */}
+        <button
+          onClick={() => onStageSelect(null)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            padding: '14px 28px',
+            background: selectedStageId === null ? 'rgba(255,255,255,0.08)' : 'transparent',
+            border: 'none',
+            borderLeft: `3px solid ${selectedStageId === null ? '#fff' : 'transparent'}`,
+            color: selectedStageId === null ? '#fff' : '#888',
+            fontSize: 14,
+            fontWeight: selectedStageId === null ? 600 : 400,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            if (selectedStageId !== null) {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+              e.currentTarget.style.color = '#fff'
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedStageId !== null) {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = '#888'
+            }
+          }}
+        >
+          Overview
+        </button>
+
+        {/* Separator */}
+        <div style={{
+          margin: '16px 28px',
+          height: '1px',
+          background: '#2a2a2a',
+        }} />
+
         {/* Journey Creation Section */}
         <div style={{
-          padding: '20px 28px 8px',
+          padding: '24px 28px 8px',
           fontSize: 10,
           textTransform: 'uppercase',
           color: '#3a3a3a',
@@ -120,7 +163,11 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
                 fontWeight: 600,
                 display: 'flex',
                 alignItems: 'center',
+                gap: 8,
               }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                </svg>
                 <span style={{ flex: 1 }}>{journey.name}</span>
                 {locked && <span style={{ fontSize: 11, opacity: 0.4 }}>🔒</span>}
               </div>
@@ -138,9 +185,16 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
           )
         })}
 
+        {/* Separator */}
+        <div style={{
+          margin: '24px 28px',
+          height: '1px',
+          background: '#2a2a2a',
+        }} />
+
         {/* Component Creation Section */}
         <div style={{
-          padding: '32px 28px 8px',
+          padding: '8px 28px 8px',
           fontSize: 10,
           textTransform: 'uppercase',
           color: '#3a3a3a',
@@ -151,6 +205,16 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
         </div>
         {journeys.filter(j => j.sectionId === 'component-creation').map(journey => {
           const locked = LOCKED_SECTIONS.has(journey.sectionId)
+          const icon = journey.id === 'dsl' 
+            ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+            : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
 
           return (
             <div key={journey.id}>
@@ -163,7 +227,9 @@ function Sidebar({ selectedStageId, onStageSelect, storyCountByStage }) {
                 fontWeight: 600,
                 display: 'flex',
                 alignItems: 'center',
+                gap: 8,
               }}>
+                {icon}
                 <span style={{ flex: 1 }}>{journey.name}</span>
                 {locked && <span style={{ fontSize: 11, opacity: 0.4 }}>🔒</span>}
               </div>

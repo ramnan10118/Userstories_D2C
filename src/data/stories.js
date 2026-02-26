@@ -215,12 +215,6 @@ export const actors = [
     role: 'Reviews screens shared by designers. Plans work around component availability.',
   },
   {
-    name: 'New Joiner',
-    emoji: '👋',
-    color: '#D18C0A',
-    role: 'Designer or developer onboarding onto the system.',
-  },
-  {
     name: 'QA Engineer',
     emoji: '🔬',
     color: '#DC2626',
@@ -447,17 +441,7 @@ export const stories = [
     soThat: 'I never build something from scratch that already exists in the system',
   },
   {
-    id: 'US-36', stageId: 'sp-discover', actor: 'New Joiner',
-    want: 'read the component spec files and immediately understand what each component looks like, when to use it, and when not to',
-    soThat: 'I can contribute without needing a handholding session',
-  },
-  {
-    id: 'US-37', stageId: 'sp-discover', actor: 'New Joiner',
-    want: 'read the CSS and framework spec files and immediately understand the technical rules for each component',
-    soThat: 'I can maintain and extend the system without breaking existing patterns',
-  },
-  {
-    id: 'US-60', stageId: 'sp-discover', actor: 'Developer',
+    id: 'US-60', stageId: 'sp-discover', actor: 'Designer',
     want: 'to know if I can install a component package anytime later while generating, even if I forgot to use it initially',
     soThat: 'I can add components on-demand without restarting my workflow',
   },
@@ -518,22 +502,6 @@ export const stories = [
 
   // ══ SUPPORT ══════════════════════════════════════════════════════════════
 
-  // Stage: Onboarding
-  {
-    id: 'US-46', stageId: 'sp-onboard', actor: 'New Joiner',
-    want: 'to read the foundation .md file and understand every colour, spacing value, typography token, and animation rule in under an hour',
-    soThat: 'I can start contributing to the system on day one',
-  },
-  {
-    id: 'US-47', stageId: 'sp-onboard', actor: 'New Joiner',
-    want: 'to read the design-spec.mdc master index and understand the complete component inventory, file structure, and golden rules before touching any code',
-    soThat: 'I never accidentally break the system through ignorance',
-  },
-  {
-    id: 'US-48', stageId: 'sp-onboard', actor: 'New Joiner',
-    want: 'a getting started guide walking through one complete example — from DSL writing a spec, to developer publishing a component, to designer generating a screen',
-    soThat: 'the entire workflow is clear before I have to do it myself',
-  },
 
   // Stage: Collaboration
   {
